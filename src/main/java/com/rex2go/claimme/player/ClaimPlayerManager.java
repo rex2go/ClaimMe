@@ -17,8 +17,8 @@ public class ClaimPlayerManager {
     private final ArrayList<ClaimPlayer> cachedClaimPlayers = new ArrayList<>();
 
     public ClaimPlayer get(Player player) {
-        for(var cp : cachedClaimPlayers) {
-            if(cp.getUniqueId().equals(player.getUniqueId())) return cp;
+        for (var cp : cachedClaimPlayers) {
+            if (cp.getUniqueId().equals(player.getUniqueId())) return cp;
         }
 
         try {
@@ -35,7 +35,7 @@ public class ClaimPlayerManager {
                 long lastSeen = rs.getLong("lastSeen");
 
                 // update username
-                if(!username.equals(player.getName())) {
+                if (!username.equals(player.getName())) {
                     PreparedStatement ps1 = connection.prepareStatement("UPDATE `claim_player` SET `username` = `?` WHERE `uuid` = ?");
                     ps1.setString(1, player.getName());
                     ps1.setString(2, player.getUniqueId().toString());
@@ -47,8 +47,8 @@ public class ClaimPlayerManager {
                 ArrayList<ProtectedRegion> plots = new ArrayList<>();
                 var allRegions = ClaimMe.getInstance().getRegionManager().getRegions();
 
-                for(var region : allRegions.values()) {
-                    if(region.getOwners().contains(player.getUniqueId())) {
+                for (var region : allRegions.values()) {
+                    if (region.getOwners().contains(player.getUniqueId())) {
                         plots.add(region);
                     }
                 }
@@ -87,11 +87,11 @@ public class ClaimPlayerManager {
     }
 
     public ClaimOfflinePlayer resolve(String name, boolean cacheOnly) {
-        for(var cp : cachedClaimPlayers) {
-            if(cp.getName().equalsIgnoreCase(name)) return cp;
+        for (var cp : cachedClaimPlayers) {
+            if (cp.getName().equalsIgnoreCase(name)) return cp;
         }
 
-        if(cacheOnly) return null;
+        if (cacheOnly) return null;
 
         try {
             ClaimOfflinePlayer cp = null;

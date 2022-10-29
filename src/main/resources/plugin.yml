@@ -13,5 +13,8 @@ depend:
   - WorldGuard
 commands:
   claim:
+    description: Claim a chunk
   plot:
+    description: Manage claimed area (plot)
   lastseen:
+    description: Check last online time of a player

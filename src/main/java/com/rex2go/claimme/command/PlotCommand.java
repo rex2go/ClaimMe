@@ -52,15 +52,15 @@ public class PlotCommand extends WrappedCommandExecutor {
         } else {
             player.sendMessage("§7-§e-§7- §fPlot Help §7-§e-§7-");
             player.sendMessage("§fClaimMe created by rex2go");
-            if(player.hasPermission("claimme.plot.list"))
+            if (player.hasPermission("claimme.plot.list"))
                 player.sendMessage("§7/plot list");
-            if(player.hasPermission("claimme.plot.info"))
+            if (player.hasPermission("claimme.plot.info"))
                 player.sendMessage("§7/plot info <ID>");
-            if(player.hasPermission("claimme.plot.addmember"))
+            if (player.hasPermission("claimme.plot.addmember"))
                 player.sendMessage("§7/plot addmember <ID> <Spieler>");
-            if(player.hasPermission("claimme.plot.removemember"))
+            if (player.hasPermission("claimme.plot.removemember"))
                 player.sendMessage("§7/plot removemember <ID> <Spieler>");
-            if(player.hasPermission("claimme.plot.transfer"))
+            if (player.hasPermission("claimme.plot.transfer"))
                 player.sendMessage("§7/plot transfer <ID> <Spieler>");
         }
     }
@@ -271,7 +271,7 @@ public class PlotCommand extends WrappedCommandExecutor {
         String id = args[1];
         String playerName = args[2];
 
-        if(playerName.equalsIgnoreCase(player.getName()))
+        if (playerName.equalsIgnoreCase(player.getName()))
             throw new CommandErrorException("Du bist bereits Eigentümer des Gebiets");
 
         ProtectedRegion region = plugin.getRegionManager().getRegion("claimme_" + id);

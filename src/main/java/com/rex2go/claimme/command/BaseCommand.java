@@ -3,18 +3,15 @@ package com.rex2go.claimme.command;
 
 import com.rex2go.claimme.ClaimMe;
 import com.rex2go.claimme.command.exception.CommandErrorException;
-import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class BaseCommand {
 
@@ -60,13 +57,13 @@ public abstract class BaseCommand {
         for (BlockVector3 vector3 : blockVectors) {
             var protectedRegions = regionManager.getApplicableRegions(vector3);
 
-            for(var protectedRegion : protectedRegions) {
-                if(regions.contains(protectedRegion)) continue;
+            for (var protectedRegion : protectedRegions) {
+                if (regions.contains(protectedRegion)) continue;
                 regions.add(protectedRegion);
             }
         }
 
-        if(playerNeedsToBeMember || playerNeedsToBeOwner) {
+        if (playerNeedsToBeMember || playerNeedsToBeOwner) {
             var filtered = new ArrayList<ProtectedRegion>();
 
             if (playerNeedsToBeOwner)

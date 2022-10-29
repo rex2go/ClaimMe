@@ -15,6 +15,8 @@ public class ConfigManager {
     private final boolean disableGlobalBuild;
     private final List<String> worldNames;
 
+    // TODO: add mysql
+
     public ConfigManager() {
         chunkPrice = plugin.getConfig().getDouble("chunkPrice");
         regionPriority = plugin.getConfig().getInt("regionPriority");

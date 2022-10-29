@@ -2,7 +2,6 @@ package com.rex2go.claimme.command;
 
 import com.rex2go.claimme.ClaimMe;
 import com.rex2go.claimme.player.ClaimPlayer;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,7 +19,7 @@ public class PlotChatCompleter implements TabCompleter {
         if (!command.getName().equalsIgnoreCase("plot"))
             return new ArrayList<>();
 
-        if(!(sender instanceof Player player))
+        if (!(sender instanceof Player player))
             return new ArrayList<>();
 
         String lastArg = args[args.length - 1];
@@ -58,7 +57,7 @@ public class PlotChatCompleter implements TabCompleter {
                 ClaimPlayer claimPlayer = ClaimMe.getInstance().getClaimPlayerManager().get(player);
                 ArrayList<String> list = new ArrayList<>();
 
-                for(var region : claimPlayer.getCachedRegions()) {
+                for (var region : claimPlayer.getCachedRegions()) {
                     list.add(region.getId().substring(8));
                 }
 
@@ -70,10 +69,10 @@ public class PlotChatCompleter implements TabCompleter {
                         .collect(Collectors.toList());
             }
 
-            if(args.length == 3) {
+            if (args.length == 3) {
                 ArrayList<String> list = new ArrayList<>();
 
-                for(var all : Bukkit.getOnlinePlayers()) {
+                for (var all : Bukkit.getOnlinePlayers()) {
                     list.add(all.getName());
                 }
 

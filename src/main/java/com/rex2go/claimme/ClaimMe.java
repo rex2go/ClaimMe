@@ -79,14 +79,14 @@ public class ClaimMe extends JavaPlugin {
                 configManager.isDisableGlobalBuild() ? StateFlag.State.DENY : StateFlag.State.ALLOW
         );
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             claimPlayerManager.get(player);
         }
     }
 
     @Override
     public void onDisable() {
-        for(ClaimPlayer player : claimPlayerManager.getCachedClaimPlayers()) {
+        for (ClaimPlayer player : claimPlayerManager.getCachedClaimPlayers()) {
             claimPlayerManager.save(player);
         }
     }

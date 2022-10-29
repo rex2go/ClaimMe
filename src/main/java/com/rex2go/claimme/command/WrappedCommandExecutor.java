@@ -6,9 +6,9 @@ import org.bukkit.command.*;
 
 public abstract class WrappedCommandExecutor extends BaseCommand implements CommandExecutor {
 
+    private final String command;
     @Getter
     protected PluginCommand pluginCommand;
-    private final String command;
 
     public WrappedCommandExecutor(String command, TabCompleter tabCompleter) {
         this.command = command;

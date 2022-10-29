@@ -13,6 +13,9 @@ worlds:
 # if set to false SQLite will be used
 useMySQL: false
 
+# remove plots after given offline player time in seconds
+removeInactivePlotsTime: -1
+
 mySQL:
   host:
   port: 3306
