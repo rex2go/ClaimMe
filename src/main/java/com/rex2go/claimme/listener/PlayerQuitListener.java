@@ -13,6 +13,7 @@ public class PlayerQuitListener extends AbstractListener {
         Player player = event.getPlayer();
         ClaimPlayerManager claimPlayerManager = plugin.getClaimPlayerManager();
         ClaimPlayer claimPlayer = claimPlayerManager.get(player);
+        claimPlayer.setLastSeen(System.currentTimeMillis());
         claimPlayerManager.save(claimPlayer);
         claimPlayerManager.getCachedClaimPlayers().remove(claimPlayer);
     }

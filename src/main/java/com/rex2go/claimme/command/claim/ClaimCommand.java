@@ -1,7 +1,8 @@
-package com.rex2go.claimme.command;
+package com.rex2go.claimme.command.claim;
 
 import com.rex2go.claimme.ClaimMe;
 import com.rex2go.claimme.Util;
+import com.rex2go.claimme.command.WrappedCommandExecutor;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;

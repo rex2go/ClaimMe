@@ -1,4 +1,4 @@
-package com.rex2go.claimme.command;
+package com.rex2go.claimme.command.plot;
 
 import com.rex2go.claimme.ClaimMe;
 import com.rex2go.claimme.player.ClaimPlayer;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlotChatCompleter implements TabCompleter {
+public class PlotTabCompleter implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {

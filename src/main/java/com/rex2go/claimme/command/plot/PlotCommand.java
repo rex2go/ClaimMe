@@ -1,7 +1,8 @@
-package com.rex2go.claimme.command;
+package com.rex2go.claimme.command.plot;
 
 import com.rex2go.claimme.ClaimMe;
 import com.rex2go.claimme.Util;
+import com.rex2go.claimme.command.WrappedCommandExecutor;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.rex2go.claimme.player.ClaimOfflinePlayer;
 import com.rex2go.claimme.player.ClaimPlayer;
@@ -12,7 +13,6 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -25,7 +25,7 @@ public class PlotCommand extends WrappedCommandExecutor {
     private final ClaimMe plugin = ClaimMe.getInstance();
 
     public PlotCommand() {
-        super("plot", new PlotChatCompleter());
+        super("plot", new PlotTabCompleter());
     }
 
     @Override

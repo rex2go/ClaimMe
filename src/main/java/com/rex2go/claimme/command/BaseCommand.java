@@ -6,7 +6,6 @@ import com.rex2go.claimme.Util;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.bukkit.Chunk;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

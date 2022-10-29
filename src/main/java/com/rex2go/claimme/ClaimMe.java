@@ -1,13 +1,14 @@
 package com.rex2go.claimme;
 
-import com.rex2go.claimme.command.ClaimCommand;
-import com.rex2go.claimme.command.LastSeenCommand;
-import com.rex2go.claimme.command.PlotCommand;
+import com.rex2go.claimme.command.claim.ClaimCommand;
+import com.rex2go.claimme.command.lastseen.LastSeenCommand;
+import com.rex2go.claimme.command.plot.PlotCommand;
 import com.rex2go.claimme.config.ConfigManager;
 import com.rex2go.claimme.database.DatabaseManager;
 import com.rex2go.claimme.listener.PlayerJoinListener;
 import com.rex2go.claimme.player.ClaimPlayer;
 import com.rex2go.claimme.player.ClaimPlayerManager;
+import com.rex2go.claimme.task.InactivityChecker;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.flags.Flag;
@@ -19,7 +20,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -67,9 +67,9 @@ public class ClaimMe extends JavaPlugin {
 
         worldGuard = WorldGuard.getInstance();
 
+        setupManagers();
         setupDatabase();
         setupTables();
-        setupManagers();
         setupListeners();
         setupCommands();
 
@@ -81,6 +81,8 @@ public class ClaimMe extends JavaPlugin {
         for (Player player : Bukkit.getOnlinePlayers()) {
             claimPlayerManager.get(player);
         }
+
+        new InactivityChecker().runTaskTimerAsynchronously(this, 0, configManager.getRemoveInactivePlotsCheckInterval() * 20L);
     }
 
     @Override
@@ -101,15 +103,14 @@ public class ClaimMe extends JavaPlugin {
     }
 
     private void setupDatabase() {
-        FileConfiguration config = getConfig();
-        boolean useMySQL = config.getBoolean("useMySQL");
+        boolean useMySQL = configManager.isUseMySQL();
 
         if (useMySQL) {
-            String host = config.getString("mySQL.host");
-            int port = config.getInt("mySQL.port");
+            String host = configManager.getHost();
+            int port = configManager.getPort();
             String database = "claimme";
-            String user = config.getString("mySQL.user");
-            String password = config.getString("mySQL.password");
+            String user = configManager.getUser();
+            String password = configManager.getPassword();
 
             databaseManager = new DatabaseManager(host, database, user, password, port);
         } else {

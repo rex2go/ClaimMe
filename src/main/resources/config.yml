@@ -10,11 +10,13 @@ disableGlobalBuild: true
 worlds:
   - "world"
 
-# if set to false SQLite will be used
-useMySQL: false
+removeInactivePlotsCheckInterval: 1800
 
 # remove plots after given offline player time in seconds
 removeInactivePlotsTime: -1
+
+# if set to false SQLite will be used
+useMySQL: false
 
 mySQL:
   host:

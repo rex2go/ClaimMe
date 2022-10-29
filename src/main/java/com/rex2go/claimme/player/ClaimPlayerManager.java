@@ -96,7 +96,7 @@ public class ClaimPlayerManager {
         try {
             ClaimOfflinePlayer cp = null;
             var connection = ClaimMe.getInstance().getDatabaseManager().getDataSource().getConnection();
-            var ps = connection.prepareStatement("SELECT * FROM `claim_player` WHERE `name` = ?");
+            var ps = connection.prepareStatement("SELECT * FROM `claim_player` WHERE `username` = ?");
             ps.setString(1, name);
 
             ResultSet rs = ps.executeQuery();

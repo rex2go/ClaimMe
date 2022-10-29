@@ -40,7 +40,7 @@ public class Util {
                                 || blockVectors.get(0).getZ() == z
                                 || blockVectors.get(3).getZ() == z
                         ) {
-                            for(int y = player.getLocation().getBlockY(); y <= player.getLocation().getBlockY() + 3; y++) {
+                            for (int y = player.getLocation().getBlockY(); y <= player.getLocation().getBlockY() + 3; y++) {
                                 player.spawnParticle(Particle.FLAME, x + 0.5, y, z + 0.5, 1, 0, 0, 0, 0.001);
                             }
                         }
