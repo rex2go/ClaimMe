@@ -73,7 +73,6 @@ public class ClaimMe extends JavaPlugin {
         setupListeners();
         setupCommands();
 
-        // disable global building FIXME: not working?
         setGlobalFlag(
                 Flags.BUILD,
                 configManager.isDisableGlobalBuild() ? StateFlag.State.DENY : StateFlag.State.ALLOW
