@@ -1,0 +1,20 @@
+# WorldGuard region priority
+regionPriority: 1
+
+chunkPrice: 5000
+
+# currently not working (WorldGuard bug?)
+disableGlobalBuild: true
+
+# currently only one world supported
+worlds:
+  - "world"
+
+# if set to false SQLite will be used
+useMySQL: false
+
+mySQL:
+  host:
+  port: 3306
+  user:
+  password:

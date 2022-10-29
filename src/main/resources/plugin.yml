@@ -1,0 +1,17 @@
+main: com.rex2go.claimme.ClaimMe
+name: ${name}
+version: ${version}
+author: rex2go
+api-version: 1.19
+loadbefore:
+  - Vault
+  - WorldEdit
+  - WorldGuard
+depend:
+  - Vault
+  - WorldEdit
+  - WorldGuard
+commands:
+  claim:
+  plot:
+  lastseen:
