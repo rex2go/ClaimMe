@@ -373,10 +373,9 @@ public class PlotCommand extends WrappedCommandExecutor {
             return;
         }
 
-        region.getOwners().removePlayer(player.getUniqueId());
-        region.getMembers().removePlayer(player.getUniqueId());
+        region.getOwners().clear();
+        region.getMembers().clear();
         region.getOwners().addPlayer(claimOfflinePlayer.getUniqueId());
-        region.getMembers().removePlayer(claimOfflinePlayer.getUniqueId());
 
         player.getCachedRegions().remove(region);
 
