@@ -245,7 +245,7 @@ public class PlotCommand extends WrappedCommandExecutor {
             checkPermission(player.getPlayer(), "claimme.plot.admin");
 
             var targetName = args[1];
-            var target = plugin.getClaimPlayerManager().resolve(targetName, true);
+            var target = plugin.getClaimPlayerManager().resolve(targetName);
             ArrayList<ProtectedRegion> list;
 
             if(target == null)
@@ -266,6 +266,11 @@ public class PlotCommand extends WrappedCommandExecutor {
             }
 
             player.sendMessage("§7" + targetName + " besitzt folgende Gebiete:");
+            
+            if(list.isEmpty()) {
+                player.sendMessage("§7Keine");
+                return;
+            }
 
             for (var region : list) {
                 var baseComponents = TextComponent.fromLegacyText(
@@ -296,6 +301,11 @@ public class PlotCommand extends WrappedCommandExecutor {
         }
 
         player.sendMessage("§7Du besitzt folgende Gebiete:");
+
+        if(player.getCachedRegions().isEmpty()) {
+            player.sendMessage("§7Keine");
+            return;
+        }
 
         for (var region : player.getCachedRegions()) {
             var baseComponents = TextComponent.fromLegacyText(
@@ -332,7 +342,7 @@ public class PlotCommand extends WrappedCommandExecutor {
         String id = args[1];
         String playerName = args[2];
 
-        if (playerName.equalsIgnoreCase(player.getName()))
+        if (playerName.equalsIgnoreCase(player.getName()) && !player.hasPermission("claimme.plot.admin"))
             throw new CommandErrorException("Du bist bereits Eigentümer des Gebiets");
 
         ProtectedRegion region = plugin.getRegionManager().getRegion("claimme_" + id);
