@@ -248,7 +248,10 @@ public class PlotCommand extends WrappedCommandExecutor {
             var target = plugin.getClaimPlayerManager().resolve(targetName, true);
             ArrayList<ProtectedRegion> list;
 
-            if (target != null && target.isOnline()) {
+            if(target == null)
+                throw new CommandErrorException(String.format("%s war noch nie auf diesem Server", targetName));
+
+            if (target.isOnline()) {
                 list = ((ClaimPlayer) target).getCachedRegions();
             } else {
                 list = new ArrayList<>();
@@ -256,7 +259,7 @@ public class PlotCommand extends WrappedCommandExecutor {
                 var allRegions = ClaimMe.getInstance().getRegionManager().getRegions();
 
                 for (var region : allRegions.values()) {
-                    if (region.getOwners().contains(player.getUniqueId())) {
+                    if (region.getOwners().contains(target.getUniqueId())) {
                         list.add(region);
                     }
                 }
