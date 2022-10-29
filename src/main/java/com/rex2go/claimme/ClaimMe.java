@@ -147,7 +147,7 @@ public class ClaimMe extends JavaPlugin {
                     CREATE TABLE IF NOT EXISTS `claim_player` (
                     	`uuid` VARCHAR(36) NOT NULL,
                     	`username` VARCHAR(16) NOT NULL,
-                    	`lastSeen` DOUBLE zerofill NOT NULL,
+                    	`lastSeen` DOUBLE DEFAULT 0,
                     	PRIMARY KEY (`uuid`)
                     );
                     """);
