@@ -26,8 +26,6 @@ public class ConfigManager {
     private String user = "";
     private String password = "";
 
-    // TODO: add mysql
-
     public ConfigManager() {
         loadConfig();
     }
