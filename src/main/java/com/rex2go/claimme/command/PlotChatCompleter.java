@@ -38,6 +38,8 @@ public class PlotChatCompleter implements TabCompleter {
                 list.add("removemember");
             if (sender.hasPermission("claimme.plot.transfer") || isAdmin)
                 list.add("transfer");
+            if (sender.hasPermission("claimme.plot.show") || isAdmin)
+                list.add("show");
 
             if (lastArg.isEmpty()) return list;
 
@@ -52,7 +54,8 @@ public class PlotChatCompleter implements TabCompleter {
         if (subCommand.equalsIgnoreCase("info")
                 || subCommand.equalsIgnoreCase("addmember")
                 || subCommand.equalsIgnoreCase("removemember")
-                || subCommand.equalsIgnoreCase("transfer")) {
+                || subCommand.equalsIgnoreCase("transfer")
+                || subCommand.equalsIgnoreCase("show")) {
             if (args.length == 2) {
                 ClaimPlayer claimPlayer = ClaimMe.getInstance().getClaimPlayerManager().get(player);
                 ArrayList<String> list = new ArrayList<>();

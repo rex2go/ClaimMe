@@ -1,6 +1,7 @@
 package com.rex2go.claimme.command;
 
 import com.rex2go.claimme.ClaimMe;
+import com.rex2go.claimme.Util;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.rex2go.claimme.player.ClaimOfflinePlayer;
 import com.rex2go.claimme.player.ClaimPlayer;
@@ -11,6 +12,9 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -46,23 +50,65 @@ public class PlotCommand extends WrappedCommandExecutor {
                 removeMember(claimPlayer, args);
             } else if (arg0.equalsIgnoreCase("transfer")) {
                 transfer(claimPlayer, args);
+            } else if (arg0.equalsIgnoreCase("show")) {
+                show(claimPlayer, args);
             } else {
-                player.sendMessage("§7/plot <list|info|addmember|removemember|transfer>");
+                player.sendMessage("§7/plot <list|info|addmember|removemember|transfer|show>");
             }
         } else {
             player.sendMessage("§7-§e-§7- §fPlot Help §7-§e-§7-");
             player.sendMessage("§fClaimMe created by rex2go");
             if (player.hasPermission("claimme.plot.list"))
-                player.sendMessage("§7/plot list");
+                player.sendMessage("§7/plot list [<Spieler>]");
             if (player.hasPermission("claimme.plot.info"))
-                player.sendMessage("§7/plot info <ID>");
+                player.sendMessage("§7/plot info [<ID>]");
             if (player.hasPermission("claimme.plot.addmember"))
                 player.sendMessage("§7/plot addmember <ID> <Spieler>");
             if (player.hasPermission("claimme.plot.removemember"))
                 player.sendMessage("§7/plot removemember <ID> <Spieler>");
             if (player.hasPermission("claimme.plot.transfer"))
                 player.sendMessage("§7/plot transfer <ID> <Spieler>");
+            if (player.hasPermission("claimme.plot.show"))
+                player.sendMessage("§7/plot show [<ID>]");
         }
+    }
+
+    private void show(ClaimPlayer player, String[] args) throws CommandErrorException {
+        checkPermission(player.getPlayer(), "claimme.plot.show");
+
+        ProtectedRegion region;
+        String id;
+
+        if (args.length >= 2) {
+            id = args[1];
+            region = plugin.getRegionManager().getRegion("claimme_" + id);
+        } else {
+            var regions = getRegions(player.getPlayer(), true, true);
+
+            if (regions.size() == 0)
+                throw new CommandErrorException("§eNutze /plot show <ID>, um die Grenzen eines Plots anzuzeigen");
+
+            region = regions.get(0);
+            id = region.getId();
+        }
+
+        if (region == null)
+            throw new CommandErrorException("§cDas Gebiet mit der ID \"" + id + "\" konnte nicht gefunden werden");
+
+        if (!region.getOwners().contains(player.getUniqueId()))
+            checkPermission(player.getPlayer(), "claimme.plot.admin");
+
+        Location location = player.getPlayer().getLocation();
+        Chunk chunk = location.getWorld().getChunkAt(
+                new Location(location.getWorld(), region.getMinimumPoint().getBlockX(), location.getY(), region.getMinimumPoint().getBlockZ())
+        );
+        Util.displayPlot(
+                Util.getChunkVertices3D(
+                        chunk,
+                        location.getY()
+                ),
+                player.getPlayer()
+        );
     }
 
     private void addMember(ClaimPlayer player, String[] args) throws CommandErrorException {
@@ -178,6 +224,18 @@ public class PlotCommand extends WrappedCommandExecutor {
         player.sendMessage("§7Priorität: §e" + region.getPriority());
 
         player.sendMessage("§7Koordinaten: §eX: " + region.getMinimumPoint().getX() + " Z: " + region.getMinimumPoint().getZ());
+
+        Location location = player.getPlayer().getLocation();
+        Chunk chunk = location.getWorld().getChunkAt(
+                new Location(location.getWorld(), region.getMinimumPoint().getBlockX(), location.getY(), region.getMinimumPoint().getBlockZ())
+        );
+        Util.displayPlot(
+                Util.getChunkVertices3D(
+                        chunk,
+                        location.getY()
+                ),
+                player.getPlayer()
+        );
     }
 
     private void list(ClaimPlayer player, String[] args) throws CommandErrorException {

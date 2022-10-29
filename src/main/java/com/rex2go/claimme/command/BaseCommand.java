@@ -2,6 +2,7 @@ package com.rex2go.claimme.command;
 
 
 import com.rex2go.claimme.ClaimMe;
+import com.rex2go.claimme.Util;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -28,15 +29,6 @@ public abstract class BaseCommand {
         sender.sendMessage(String.format(message, objects));
     }
 
-    public List<BlockVector3> getChunkVertices3D(Chunk chunk, double y) {
-        var p1 = BlockVector3.at(chunk.getX() * 16, y, chunk.getZ() * 16);
-        var p2 = BlockVector3.at(chunk.getX() * 16 + 15, y, chunk.getZ() * 16);
-        var p3 = BlockVector3.at(chunk.getX() * 16, y, chunk.getZ() * 16 + 15);
-        var p4 = BlockVector3.at(chunk.getX() * 16 + 15, y, chunk.getZ() * 16 + 15);
-
-        return List.of(p1, p2, p3, p4);
-    }
-
     public List<ProtectedRegion> getRegions(Player player, boolean playerNeedsToBeOwner, boolean playerNeedsToBeMember) throws CommandErrorException {
         var location = player.getLocation();
 
@@ -48,7 +40,7 @@ public abstract class BaseCommand {
 
         var playerVector = BlockVector3.at(location.getX(), location.getY(), location.getZ());
 
-        var blockVectors = new ArrayList<>(getChunkVertices3D(chunk, location.getY()));
+        var blockVectors = new ArrayList<>(Util.getChunkVertices3D(chunk, location.getY()));
         blockVectors.add(playerVector);
 
         var regionManager = ClaimMe.getInstance().getRegionManager();

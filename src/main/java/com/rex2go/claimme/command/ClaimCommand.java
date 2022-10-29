@@ -1,6 +1,7 @@
 package com.rex2go.claimme.command;
 
 import com.rex2go.claimme.ClaimMe;
+import com.rex2go.claimme.Util;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
@@ -45,7 +46,7 @@ public class ClaimCommand extends WrappedCommandExecutor {
 
         var location = player.getLocation();
         var chunk = location.getChunk();
-        var blockVectors = getChunkVertices3D(chunk, location.getY());
+        var blockVectors = Util.getChunkVertices3D(chunk, location.getY());
 
         var regionManager = plugin.getRegionManager();
 
@@ -61,6 +62,7 @@ public class ClaimCommand extends WrappedCommandExecutor {
         if (plugin.getEconomy().withdrawPlayer(player, plugin.getConfigManager().getChunkPrice()).type == EconomyResponse.ResponseType.SUCCESS) {
             regionManager.addRegion(region);
             player.sendMessage("§aGebietskauf erfolgreich. §7Du hast ein Gebiet für §f" + priceString + " " + ecoName + " §7erworben.");
+            Util.displayPlot(blockVectors, player);
         } else {
             player.sendMessage("§cEs gab einen Fehler");
         }
