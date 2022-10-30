@@ -22,6 +22,9 @@ public class ClaimPlayer extends ClaimOfflinePlayer {
     @Setter
     private BlockVector3 lastClicked;
 
+    @Setter
+    private long lastPlotDisplay = System.currentTimeMillis();
+
     public ClaimPlayer(String name, UUID uuid, long lastSeen, ArrayList<ProtectedRegion> cachedRegions, ArrayList<ClaimGroup> cachedGroups, Player player) {
         super(name, uuid, lastSeen);
         this.cachedRegions = cachedRegions;

@@ -31,13 +31,21 @@ public class ClaimUtil {
     }
 
     public static void displayPlot(List<BlockVector3> blockVectors, Player player) {
+        var cp = plugin.getClaimPlayerManager().get(player);
+        if(System.currentTimeMillis() - cp.getLastPlotDisplay() < 1000) {
+            player.sendMessage(String.format("§7Partikel Cooldown (%fs)", (1000L - (System.currentTimeMillis() - cp.getLastPlotDisplay())) / 1000d));
+            return;
+        }
+
+        cp.setLastPlotDisplay(System.currentTimeMillis());
+
         new BukkitRunnable() {
 
             private int iterations = 0;
 
             @Override
             public void run() {
-                if (iterations < 50) {
+                if (iterations < 20) {
                     iterations++;
                 } else {
                     this.cancel();
