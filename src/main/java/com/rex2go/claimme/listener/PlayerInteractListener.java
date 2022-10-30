@@ -74,7 +74,7 @@ public class PlayerInteractListener extends AbstractListener {
             var id = region.getId().substring(8);
 
             if(region.getOwners().contains(player.getUniqueId())) {
-                Bukkit.dispatchCommand(player, String.format("/plot info %s", id));
+                Bukkit.dispatchCommand(player, String.format("plot info %s", id));
                 return;
             }
 
