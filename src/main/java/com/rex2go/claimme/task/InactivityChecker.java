@@ -14,7 +14,7 @@ public class InactivityChecker extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(plugin.getConfigManager().getRemoveInactivePlotsTime() == -1) return;
+        if (plugin.getConfigManager().getRemoveInactivePlotsTime() == -1) return;
 
         try {
             var connection = plugin.getDatabaseManager().getDataSource().getConnection();

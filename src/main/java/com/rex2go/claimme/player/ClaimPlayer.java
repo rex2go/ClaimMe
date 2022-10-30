@@ -1,8 +1,10 @@
 package com.rex2go.claimme.player;
 
 import com.rex2go.claimme.plot.ClaimGroup;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -16,6 +18,9 @@ public class ClaimPlayer extends ClaimOfflinePlayer {
     private final ArrayList<ClaimGroup> cachedGroups;
 
     private final Player player;
+
+    @Setter
+    private BlockVector3 lastClicked;
 
     public ClaimPlayer(String name, UUID uuid, long lastSeen, ArrayList<ProtectedRegion> cachedRegions, ArrayList<ClaimGroup> cachedGroups, Player player) {
         super(name, uuid, lastSeen);

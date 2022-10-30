@@ -5,7 +5,9 @@ import com.rex2go.claimme.command.lastseen.LastSeenCommand;
 import com.rex2go.claimme.command.plot.PlotCommand;
 import com.rex2go.claimme.config.ConfigManager;
 import com.rex2go.claimme.database.DatabaseManager;
+import com.rex2go.claimme.listener.PlayerInteractListener;
 import com.rex2go.claimme.listener.PlayerJoinListener;
+import com.rex2go.claimme.listener.PlayerQuitListener;
 import com.rex2go.claimme.player.ClaimPlayer;
 import com.rex2go.claimme.player.ClaimPlayerManager;
 import com.rex2go.claimme.task.InactivityChecker;
@@ -175,6 +177,8 @@ public class ClaimMe extends JavaPlugin {
 
     private void setupListeners() {
         new PlayerJoinListener();
+        new PlayerQuitListener();
+        new PlayerInteractListener();
     }
 
     private void setupCommands() {

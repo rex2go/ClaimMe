@@ -1,7 +1,7 @@
 package com.rex2go.claimme.command.plot;
 
 import com.rex2go.claimme.ClaimMe;
-import com.rex2go.claimme.Util;
+import com.rex2go.claimme.util.ClaimUtil;
 import com.rex2go.claimme.command.WrappedCommandExecutor;
 import com.rex2go.claimme.command.exception.CommandErrorException;
 import com.rex2go.claimme.player.ClaimOfflinePlayer;
@@ -83,7 +83,7 @@ public class PlotCommand extends WrappedCommandExecutor {
             id = args[1];
             region = plugin.getRegionManager().getRegion("claimme_" + id);
         } else {
-            var regions = getRegions(player.getPlayer(), true, true);
+            var regions = ClaimUtil.getRegions(player.getPlayer(), true, true);
 
             if (regions.size() == 0)
                 throw new CommandErrorException("§eNutze /plot show <ID>, um die Grenzen eines Plots anzuzeigen");
@@ -102,8 +102,8 @@ public class PlotCommand extends WrappedCommandExecutor {
         Chunk chunk = location.getWorld().getChunkAt(
                 new Location(location.getWorld(), region.getMinimumPoint().getBlockX(), location.getY(), region.getMinimumPoint().getBlockZ())
         );
-        Util.displayPlot(
-                Util.getChunkVertices3D(
+        ClaimUtil.displayPlot(
+                ClaimUtil.getChunkVertices3D(
                         chunk,
                         location.getY()
                 ),
@@ -191,7 +191,7 @@ public class PlotCommand extends WrappedCommandExecutor {
             id = args[1];
             region = plugin.getRegionManager().getRegion("claimme_" + id);
         } else {
-            var regions = getRegions(player.getPlayer(), true, true);
+            var regions = ClaimUtil.getRegions(player.getPlayer(), true, true);
 
             if (regions.size() == 0)
                 throw new CommandErrorException("§eNutze /plot info <ID>, um die Informationen eines Plots anzuzeigen");
@@ -229,8 +229,8 @@ public class PlotCommand extends WrappedCommandExecutor {
         Chunk chunk = location.getWorld().getChunkAt(
                 new Location(location.getWorld(), region.getMinimumPoint().getBlockX(), location.getY(), region.getMinimumPoint().getBlockZ())
         );
-        Util.displayPlot(
-                Util.getChunkVertices3D(
+        ClaimUtil.displayPlot(
+                ClaimUtil.getChunkVertices3D(
                         chunk,
                         location.getY()
                 ),
@@ -248,7 +248,7 @@ public class PlotCommand extends WrappedCommandExecutor {
             var target = plugin.getClaimPlayerManager().resolve(targetName);
             ArrayList<ProtectedRegion> list;
 
-            if(target == null)
+            if (target == null)
                 throw new CommandErrorException(String.format("%s war noch nie auf diesem Server", targetName));
 
             if (target.isOnline()) {
@@ -266,8 +266,8 @@ public class PlotCommand extends WrappedCommandExecutor {
             }
 
             player.sendMessage("§7" + targetName + " besitzt folgende Gebiete:");
-            
-            if(list.isEmpty()) {
+
+            if (list.isEmpty()) {
                 player.sendMessage("§7Keine");
                 return;
             }
@@ -302,7 +302,7 @@ public class PlotCommand extends WrappedCommandExecutor {
 
         player.sendMessage("§7Du besitzt folgende Gebiete:");
 
-        if(player.getCachedRegions().isEmpty()) {
+        if (player.getCachedRegions().isEmpty()) {
             player.sendMessage("§7Keine");
             return;
         }

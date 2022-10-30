@@ -20,19 +20,19 @@ public class LastSeenCommand extends WrappedCommandExecutor {
     protected void execute(CommandSender sender, String label, String... args) throws Exception {
         checkPermission(sender, "claimme.lastseen");
 
-        if(args.length < 1)
+        if (args.length < 1)
             throw new CommandErrorException("§7/lastseen <Spieler>");
 
         var targetName = args[0];
 
-        if(Bukkit.getOnlinePlayers().stream().anyMatch(p -> p.getName().equalsIgnoreCase(targetName))) {
+        if (Bukkit.getOnlinePlayers().stream().anyMatch(p -> p.getName().equalsIgnoreCase(targetName))) {
             sender.sendMessage(String.format("§e%s ist gerade online", targetName));
             return;
         }
 
         var target = plugin.getClaimPlayerManager().resolve(targetName);
 
-        if(target == null)
+        if (target == null)
             throw new CommandErrorException(targetName + " war noch nie auf diesem Server");
 
         var millis = System.currentTimeMillis() - target.getLastSeen();
