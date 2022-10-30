@@ -33,7 +33,7 @@ public class ClaimUtil {
     public static void displayPlot(List<BlockVector3> blockVectors, Player player) {
         var cp = plugin.getClaimPlayerManager().get(player);
         if(System.currentTimeMillis() - cp.getLastPlotDisplay() < 1000) {
-            player.sendMessage(String.format("§7Partikel Cooldown (%fs)", (1000L - (System.currentTimeMillis() - cp.getLastPlotDisplay())) / 1000d));
+            player.sendMessage("§7Partikel Cooldown (1s)");
             return;
         }
 
